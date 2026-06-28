@@ -1,0 +1,25 @@
+services:
+  qemu:
+    image: qemux/qemu
+    container_name: ubuntu10
+    environment:
+      #BOOT: "mint"
+      #BOOT: "https://dl-cdn.alpinelinux.org/alpine/v3.19/releases/x86_64/alpine-virt-3.19.1-x86_64.iso"
+      BOOT: "https://old-releases.ubuntu.com/releases/lucid/ubuntu-10.04-desktop-amd64.iso"
+      RAM_SIZE: "1G"
+      CPU_CORES: "4"
+      DISK_SIZE: "10G"
+    devices:
+      - /dev/kvm
+      - /dev/net/tun
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - 8006:8006
+      - 2222:22
+    volumes:
+      #- ./example.iso:/boot.iso
+      - ./storage:/storage
+      - ./shared:/shared
+    restart: always
+    stop_grace_period: 2m
